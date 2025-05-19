@@ -1,10 +1,12 @@
+import "./App.css";
+
 import { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar";
 import CountryData from "./components/CountryData";
 
 const App = () => {
   const [query, setQuery] = useState("");
-  const [countries, setCountries] = useState([]);
+  const [Country, setCountry] = useState([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -17,10 +19,10 @@ const App = () => {
         );
         if (!response.ok) throw new Error("Country not found");
         const data = await response.json();
-        setCountries(data);
+        setCountry(data);
         setError("");
       } catch (err) {
-        setCountries([]);
+        setCountry([]);
         setError(err.message);
       }
     };
@@ -32,7 +34,7 @@ const App = () => {
     <div className="container">
       <h1>Country Search</h1>
       <SearchBar setQuery={setQuery} />
-      <CountryData countries={countries} error={error} />
+      <CountryData Country={Country} error={error} />
     </div>
   );
 };
